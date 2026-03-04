@@ -49,7 +49,7 @@ def calculate_water_areas(mosaic: ee.Image, ponds: ee.FeatureCollection) -> dict
 
     areas = {}
     for f in features:
-        pond_id = str(f["properties"].get("id", ""))
+        pond_id = str(f["properties"].get("simple_id", ""))
         water_area = f["properties"].get("water_area_m2")
         if water_area is None:
             water_area = 0.0

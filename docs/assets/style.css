@@ -90,6 +90,27 @@ body {
   padding: 20px;
 }
 
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.info-table th,
+.info-table td {
+  text-align: left;
+  padding: 3px 6px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.info-table th {
+  width: 60px;
+  color: #888;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
 #updated-at {
   padding: 8px 16px;
   font-size: 11px;

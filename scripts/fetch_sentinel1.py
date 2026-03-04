@@ -31,8 +31,8 @@ logger = setup_logging(__name__)
 def load_pond_list() -> pd.DataFrame:
     if not POND_LIST_CSV.exists():
         raise FileNotFoundError(f"池リストCSVが見つかりません: {POND_LIST_CSV}")
-    df = pd.read_csv(POND_LIST_CSV, dtype={"id": str})
-    for col in ("id", "name", "region"):
+    df = pd.read_csv(POND_LIST_CSV, dtype={"simple_id": str})
+    for col in ("simple_id", "name", "tiiki", "ooaza", "area_ha"):
         if col not in df.columns:
             raise ValueError(f"池リストCSVに '{col}' カラムが必要です")
     return df
@@ -55,13 +55,15 @@ def process_date(date_str: str, ponds_fc: ee.FeatureCollection, pond_df: pd.Data
 
     rows = []
     for _, row in pond_df.iterrows():
-        pond_id = str(row["id"])
+        pond_id = str(row["simple_id"])
         water_area = areas.get(pond_id, 0.0)
         rows.append({
             "date": date_str,
             "pond_id": pond_id,
             "pond_name": row["name"],
-            "region": row["region"],
+            "tiiki": row["tiiki"],
+            "ooaza": row["ooaza"],
+            "area_ha": row["area_ha"],
             "water_area_m2": round(water_area, 1),
             "satellite": "Sentinel-1",
             "orbit": "DESCENDING",
@@ -71,7 +73,7 @@ def process_date(date_str: str, ponds_fc: ee.FeatureCollection, pond_df: pd.Data
     with open(csv_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(
             f,
-            fieldnames=["date", "pond_id", "pond_name", "region", "water_area_m2", "satellite", "orbit"],
+            fieldnames=["date", "pond_id", "pond_name", "tiiki", "ooaza", "area_ha", "water_area_m2", "satellite", "orbit"],
         )
         writer.writeheader()
         writer.writerows(rows)

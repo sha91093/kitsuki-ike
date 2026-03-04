@@ -41,40 +41,63 @@ def load_all_csvs() -> pd.DataFrame:
     return combined
 
 
+def load_pond_meta() -> dict:
+    """池リストCSVからメタデータを {simple_id -> dict} で返す。"""
+    if not POND_LIST_CSV.exists():
+        return {}
+    pond_df = pd.read_csv(POND_LIST_CSV, dtype={"simple_id": str})
+    meta = {}
+    for _, row in pond_df.iterrows():
+        pid = str(row["simple_id"])
+        meta[pid] = {
+            "name": row.get("name", ""),
+            "tiiki": row.get("tiiki", ""),
+            "ooaza": row.get("ooaza", ""),
+            "area_ha": float(row["area_ha"]) if pd.notna(row.get("area_ha")) else None,
+            "lat": float(row["latitude"]) if "latitude" in row and pd.notna(row.get("latitude")) else None,
+            "lng": float(row["longitude"]) if "longitude" in row and pd.notna(row.get("longitude")) else None,
+        }
+    return meta
+
+
 def build_data_json(df: pd.DataFrame) -> dict:
     """pond_id ごとに時系列データを集計してJSONオブジェクトを構築する。"""
+    meta = load_pond_meta()
+
     if df.empty:
-        pond_list = []
-        if POND_LIST_CSV.exists():
-            pond_df = pd.read_csv(POND_LIST_CSV, dtype={"id": str})
-            for _, row in pond_df.iterrows():
-                pond_list.append({
-                    "id": str(row["id"]),
-                    "name": row["name"],
-                    "region": row["region"],
-                    "timeseries": [],
-                })
+        ponds = [
+            {
+                "id": pid,
+                **m,
+                "timeseries": [],
+            }
+            for pid, m in sorted(meta.items(), key=lambda x: int(x[0]) if x[0].isdigit() else x[0])
+        ]
         return {
             "updated_at": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S"),
-            "ponds": pond_list,
+            "ponds": ponds,
         }
 
     ponds = []
     for pond_id, group in df.groupby("pond_id", sort=False):
         group = group.sort_values("date")
-        first = group.iloc[0]
+        m = meta.get(str(pond_id), {})
         timeseries = [
             {"date": row["date"], "water_area_m2": row["water_area_m2"]}
             for _, row in group.iterrows()
         ]
         ponds.append({
-            "id": pond_id,
-            "name": first.get("pond_name", ""),
-            "region": first.get("region", ""),
+            "id": str(pond_id),
+            "name": m.get("name", group.iloc[0].get("pond_name", "")),
+            "tiiki": m.get("tiiki", group.iloc[0].get("tiiki", "")),
+            "ooaza": m.get("ooaza", group.iloc[0].get("ooaza", "")),
+            "area_ha": m.get("area_ha"),
+            "lat": m.get("lat"),
+            "lng": m.get("lng"),
             "timeseries": timeseries,
         })
 
-    ponds.sort(key=lambda p: p["id"])
+    ponds.sort(key=lambda p: int(p["id"]) if p["id"].isdigit() else p["id"])
 
     return {
         "updated_at": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S"),
