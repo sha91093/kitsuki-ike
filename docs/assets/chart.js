@@ -1,6 +1,5 @@
 'use strict';
 
-// 年ごとのカラーパレット（最大8年分）
 const YEAR_COLORS = [
   '#3b82f6', // blue
   '#f97316', // orange
@@ -11,8 +10,6 @@ const YEAR_COLORS = [
   '#06b6d4', // cyan
   '#ec4899', // pink
 ];
-
-const MONTH_LABELS = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
 
 async function init() {
   const params = new URLSearchParams(location.search);
@@ -59,9 +56,9 @@ function renderMeta(pond) {
   const latestHa = latest ? (latest.water_area_m2 / 10000).toFixed(4) : null;
 
   const chips = [
-    { label: '地域',     value: pond.tiiki  || '—' },
-    { label: '大字',     value: pond.ooaza  || '—' },
-    { label: '登録面積', value: pond.area_ha != null ? `${pond.area_ha} ha` : '—' },
+    { label: '地域',         value: pond.tiiki   || '—' },
+    { label: '大字',         value: pond.ooaza   || '—' },
+    { label: '登録面積',     value: pond.area_ha != null ? `${pond.area_ha} ha` : '—' },
     { label: '最新水面面積', value: latestHa ? `${latestHa} ha（${latest.date}）` : 'データなし' },
   ];
 
@@ -74,53 +71,53 @@ function renderMeta(pond) {
 }
 
 function renderChart(pond) {
-  // 時系列データを 年 → 月 → [値(ha)] に集計
+  // 年ごとに撮影日の実測値をそのまま整理（平均なし）
   const byYear = {};
   pond.timeseries.forEach(d => {
-    const [y, m] = d.date.split('-');
-    const year  = parseInt(y, 10);
-    const month = parseInt(m, 10);
-    if (!byYear[year]) byYear[year] = {};
-    if (!byYear[year][month]) byYear[year][month] = [];
-    byYear[year][month].push(d.water_area_m2 / 10000);
+    const [y, m, day] = d.date.split('-');
+    const year = parseInt(y, 10);
+    if (!byYear[year]) byYear[year] = [];
+    byYear[year].push({
+      origDate: d.date,
+      // 年比較のため月日を基準年2000へ正規化（2000年は閏年なので2/29も安全）
+      xDate: `2000-${m}-${day}`,
+      ha: d.water_area_m2 / 10000,
+    });
   });
 
   const years = Object.keys(byYear).map(Number).sort();
 
-  // 年ごとのトレース
+  // 年ごとのトレース（撮影日ごとの実測値）
   const traces = years.map((year, i) => {
     const color = YEAR_COLORS[i % YEAR_COLORS.length];
-    const y = Array.from({ length: 12 }, (_, mi) => {
-      const vals = byYear[year][mi + 1];
-      if (!vals || vals.length === 0) return null;
-      return vals.reduce((a, b) => a + b, 0) / vals.length;
-    });
+    const pts = byYear[year].sort((a, b) => a.xDate.localeCompare(b.xDate));
     return {
-      x: MONTH_LABELS,
-      y,
+      x: pts.map(p => p.xDate),
+      y: pts.map(p => p.ha),
+      customdata: pts.map(p => p.origDate),
       mode: 'lines+markers',
       name: `${year}年`,
-      connectgaps: true,
-      line:   { color, width: 2.5, shape: 'spline' },
-      marker: { color, size: 7, symbol: 'circle',
+      line:   { color, width: 2 },
+      marker: { color, size: 6, symbol: 'circle',
                 line: { color: '#fff', width: 1.5 } },
-      hovertemplate: `<b>${year}年 %{x}</b><br>水面面積: %{y:.4f} ha<extra></extra>`,
+      hovertemplate:
+        `<b>${year}年</b> %{customdata}<br>水面面積: <b>%{y:.4f} ha</b><extra></extra>`,
     };
   });
 
-  // 登録面積を参照線として追加
+  // 登録面積を参照線として追加（y軸レンジ計算には含めない）
   if (pond.area_ha != null) {
     traces.push({
-      x: MONTH_LABELS,
-      y: Array(12).fill(pond.area_ha),
+      x: ['2000-01-01', '2000-12-31'],
+      y: [pond.area_ha, pond.area_ha],
       mode: 'lines',
       name: `登録面積 (${pond.area_ha} ha)`,
       line: { color: '#cbd5e1', width: 1.5, dash: 'dot' },
-      hovertemplate: `登録面積: ${pond.area_ha} ha<extra></extra>`,
+      hoverinfo: 'skip',
     });
   }
 
-  // 実データ（参照線を除く）の最大値からy軸レンジを決定
+  // 実データの最大値からy軸レンジを決定（参照線は除外）
   const dataMaxHa = Math.max(
     0,
     ...traces
@@ -133,18 +130,20 @@ function renderChart(pond) {
     font: { family: '"Noto Sans JP", sans-serif', size: 12, color: '#4a5568' },
     paper_bgcolor: '#fff',
     plot_bgcolor:  '#fafbfc',
-    margin: { t: 30, r: 20, b: 60, l: 70 },
+    margin: { t: 30, r: 20, b: 70, l: 70 },
     legend: {
       orientation: 'h',
-      x: 0, y: -0.18,
+      x: 0, y: -0.2,
       font: { size: 12 },
     },
     xaxis: {
-      title: { text: '月', standoff: 12 },
+      title: { text: '月', standoff: 14 },
+      type: 'date',
+      tickformat: '%-m月',
+      dtick: 'M1',
       gridcolor: '#edf2f7',
       linecolor: '#e2e8f0',
       tickfont: { size: 12 },
-      fixedrange: false,
     },
     yaxis: {
       title: { text: '水面面積 (ha)', standoff: 12 },
@@ -154,7 +153,7 @@ function renderChart(pond) {
       tickfont: { size: 12 },
       tickformat: '.3f',
     },
-    hovermode: 'x unified',
+    hovermode: 'closest',
     hoverlabel: {
       bgcolor: '#1a202c',
       bordercolor: '#1a202c',
