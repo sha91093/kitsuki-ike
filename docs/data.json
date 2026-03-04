@@ -1,4 +1,2015 @@
 {
-  "updated_at": "2026-03-04T00:00:00",
-  "ponds": []
+  "updated_at": "2026-03-04T15:52:30",
+  "ponds": [
+    {
+      "id": "0",
+      "name": "野狐谷溜池",
+      "tiiki": "杵築",
+      "ooaza": "八坂",
+      "area_ha": 2.25,
+      "lat": 33.41692889,
+      "lng": 131.5639855,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 3898.3
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "name": "申川溜池",
+      "tiiki": "杵築",
+      "ooaza": "八坂",
+      "area_ha": 2.06,
+      "lat": 33.42362229,
+      "lng": 131.5643227,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 6304.8
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "白水池",
+      "tiiki": "杵築",
+      "ooaza": "馬場尾",
+      "area_ha": 4.84,
+      "lat": 33.42415495,
+      "lng": 131.5989725,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 22381.0
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "床並溜池",
+      "tiiki": "山香",
+      "ooaza": "下",
+      "area_ha": 1.65,
+      "lat": 33.48459942,
+      "lng": 131.5025523,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 3529.9
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "name": "大河内溜池南方の池",
+      "tiiki": "大田",
+      "ooaza": "白木原",
+      "area_ha": 0.92,
+      "lat": 33.52844542,
+      "lng": 131.5826622,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 665.1
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "name": "大河内溜池",
+      "tiiki": "大田",
+      "ooaza": "白木原",
+      "area_ha": 2.64,
+      "lat": 33.53386571,
+      "lng": 131.5822369,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 11109.4
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "name": "黄午渕溜池",
+      "tiiki": "大田",
+      "ooaza": "永松",
+      "area_ha": 0.89,
+      "lat": 33.52971443,
+      "lng": 131.5761077,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 3279.0
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "name": "俣水1012付近の池",
+      "tiiki": "大田",
+      "ooaza": "俣水",
+      "area_ha": 1.61,
+      "lat": 33.5024654,
+      "lng": 131.5938885,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 6298.2
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "name": "東下司溜池",
+      "tiiki": "杵築",
+      "ooaza": "南杵築",
+      "area_ha": 0.65,
+      "lat": 33.41361616,
+      "lng": 131.6106135,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 166.5
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "name": "西下司溜池",
+      "tiiki": "杵築",
+      "ooaza": "南杵築",
+      "area_ha": 1.3,
+      "lat": 33.41311675,
+      "lng": 131.6077641,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 2508.6
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "name": "日指ダム",
+      "tiiki": "山香",
+      "ooaza": "日指",
+      "area_ha": 39.42,
+      "lat": 33.43432442,
+      "lng": 131.4348319,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 203979.2
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "name": "日指ダム",
+      "tiiki": "山香",
+      "ooaza": "日指",
+      "area_ha": 12.57,
+      "lat": 33.42918926,
+      "lng": 131.4348028,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 50720.3
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "name": "楠溜池",
+      "tiiki": "山香",
+      "ooaza": "吉野渡",
+      "area_ha": 7.11,
+      "lat": 33.44979023,
+      "lng": 131.4522682,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 30482.6
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "21",
+      "name": "石山ダム",
+      "tiiki": "杵築",
+      "ooaza": "溝井",
+      "area_ha": 10.73,
+      "lat": 33.4443845,
+      "lng": 131.5803576,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 22579.4
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "22",
+      "name": "尾払溜池",
+      "tiiki": "杵築",
+      "ooaza": "守江",
+      "area_ha": 7.07,
+      "lat": 33.43853846,
+      "lng": 131.6818898,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 39308.6
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "23",
+      "name": "鍋倉ダム",
+      "tiiki": "杵築",
+      "ooaza": "守江",
+      "area_ha": 9.42,
+      "lat": 33.43218167,
+      "lng": 131.6695906,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 36460.7
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "24",
+      "name": "糠味噌溜池",
+      "tiiki": "杵築",
+      "ooaza": "日野",
+      "area_ha": 1.69,
+      "lat": 33.39848373,
+      "lng": 131.5857026,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 3327.7
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "25",
+      "name": "弁天池",
+      "tiiki": "杵築",
+      "ooaza": "溝井",
+      "area_ha": 4.32,
+      "lat": 33.4288608,
+      "lng": 131.5902592,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 16580.3
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "26",
+      "name": "山迫溜池",
+      "tiiki": "杵築",
+      "ooaza": "鴨川",
+      "area_ha": 2.08,
+      "lat": 33.42945044,
+      "lng": 131.6033781,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 5850.3
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "27",
+      "name": "スネコスリ溜池",
+      "tiiki": "杵築",
+      "ooaza": "猪尾",
+      "area_ha": 5.54,
+      "lat": 33.39916248,
+      "lng": 131.6090348,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 28842.4
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "28",
+      "name": "中ノ池溜池",
+      "tiiki": "杵築",
+      "ooaza": "溝井",
+      "area_ha": 0.91,
+      "lat": 33.42906742,
+      "lng": 131.5809518,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 1572.7
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "29",
+      "name": "立尻溜池",
+      "tiiki": "杵築",
+      "ooaza": "溝井",
+      "area_ha": 1.61,
+      "lat": 33.43114044,
+      "lng": 131.5820209,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 5633.1
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "30",
+      "name": "本庄新池",
+      "tiiki": "杵築",
+      "ooaza": "本庄",
+      "area_ha": 3.53,
+      "lat": 33.42353102,
+      "lng": 131.5922641,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 1995.8
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "31",
+      "name": "双子溜池",
+      "tiiki": "杵築",
+      "ooaza": "本庄",
+      "area_ha": 2.7,
+      "lat": 33.42183177,
+      "lng": 131.5876151,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 14094.8
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "32",
+      "name": "大台溜池",
+      "tiiki": "杵築",
+      "ooaza": "本庄",
+      "area_ha": 5.22,
+      "lat": 33.42100152,
+      "lng": 131.582304,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 25988.6
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "33",
+      "name": "夫婦池南部",
+      "tiiki": "杵築",
+      "ooaza": "熊野",
+      "area_ha": 1.43,
+      "lat": 33.39701502,
+      "lng": 131.6301701,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 2173.4
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "34",
+      "name": "夫婦池北部",
+      "tiiki": "杵築",
+      "ooaza": "熊野",
+      "area_ha": 2.44,
+      "lat": 33.39885806,
+      "lng": 131.6296787,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 10041.0
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "35",
+      "name": "新宮溜池",
+      "tiiki": "杵築",
+      "ooaza": "日野",
+      "area_ha": 3.81,
+      "lat": 33.39083104,
+      "lng": 131.6048689,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 5912.3
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "43",
+      "name": "轟溜池",
+      "tiiki": "杵築",
+      "ooaza": "船部",
+      "area_ha": 2.04,
+      "lat": 33.44592542,
+      "lng": 131.5961092,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 6530.0
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    },
+    {
+      "id": "48",
+      "name": "申川溜池北方の池",
+      "tiiki": "杵築",
+      "ooaza": "八坂",
+      "area_ha": 0.49,
+      "lat": 33.4281677,
+      "lng": 131.5638468,
+      "timeseries": [
+        {
+          "date": "2026-02-18",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-19",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-20",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-21",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-22",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-23",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-24",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-25",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-26",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-02-27",
+          "water_area_m2": 1131.4
+        },
+        {
+          "date": "2026-02-28",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-01",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-02",
+          "water_area_m2": 0.0
+        },
+        {
+          "date": "2026-03-03",
+          "water_area_m2": 0.0
+        }
+      ]
+    }
+  ]
 }
