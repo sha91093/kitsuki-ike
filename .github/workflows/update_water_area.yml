@@ -3,7 +3,13 @@ name: 水面面積データ更新
 on:
   schedule:
     - cron: '0 3 * * 1,4'  # 月・木 03:00 UTC（Sentinel-1降交軌道の概ね周期）
-  workflow_dispatch:        # 手動実行も可能
+  workflow_dispatch:
+    inputs:
+      days_back:
+        description: '何日前まで遡って取得するか（初回過去データ取得時は 730 を指定）'
+        required: false
+        default: '14'
+        type: string
 
 permissions:
   contents: write
@@ -32,7 +38,9 @@ jobs:
       - name: Sentinel-1 データ取得・水面面積算出
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /tmp/gee_key.json
-        run: python scripts/fetch_sentinel1.py
+        run: |
+          DAYS_BACK=${{ github.event.inputs.days_back || '14' }}
+          python scripts/fetch_sentinel1.py --days-back "$DAYS_BACK"
 
       - name: データ集計・data.json 生成
         run: python scripts/aggregate_data.py
