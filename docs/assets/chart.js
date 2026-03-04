@@ -71,24 +71,24 @@ function renderMeta(pond) {
 }
 
 function renderChart(pond) {
-  // 年ごとに撮影日の実測値をそのまま整理（平均なし）
+  // ゼロ値を除外してから年ごとに整理
   const byYear = {};
-  pond.timeseries.forEach(d => {
-    const [y, m, day] = d.date.split('-');
-    const year = parseInt(y, 10);
-    if (!byYear[year]) byYear[year] = [];
-    byYear[year].push({
-      origDate: d.date,
-      // 年比較のため月日を基準年2000へ正規化（2000年は閏年なので2/29も安全）
-      xDate: `2000-${m}-${day}`,
-      // 0値はnullにして折れ線が途切れないようにする（connectgapsで非ゼロ点を直結）
-      ha: d.water_area_m2 > 0 ? d.water_area_m2 / 10000 : null,
+  pond.timeseries
+    .filter(d => d.water_area_m2 > 0)
+    .forEach(d => {
+      const [y, m, day] = d.date.split('-');
+      const year = parseInt(y, 10);
+      if (!byYear[year]) byYear[year] = [];
+      byYear[year].push({
+        origDate: d.date,
+        xDate: `2000-${m}-${day}`,
+        ha: d.water_area_m2 / 10000,
+      });
     });
-  });
 
   const years = Object.keys(byYear).map(Number).sort();
 
-  // 年ごとのトレース（撮影日ごとの実測値）
+  // 年ごとのトレース（非ゼロ実測値のみ）
   const traces = years.map((year, i) => {
     const color = YEAR_COLORS[i % YEAR_COLORS.length];
     const pts = byYear[year].sort((a, b) => a.xDate.localeCompare(b.xDate));
@@ -98,7 +98,6 @@ function renderChart(pond) {
       customdata: pts.map(p => p.origDate),
       mode: 'lines+markers',
       name: `${year}年`,
-      connectgaps: true,
       line:   { color, width: 2 },
       marker: { color, size: 6, symbol: 'circle',
                 line: { color: '#fff', width: 1.5 } },
