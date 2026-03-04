@@ -1,13 +1,12 @@
 'use strict';
 
-// 杵築市中心座標
 const KITSUKI_CENTER = [33.416, 131.621];
 const INITIAL_ZOOM = 12;
 
 let map;
 let pondLayers = {};
 let selectedPondId = null;
-let pondData = {};  // id -> pond オブジェクト
+let pondData = {};
 
 async function init() {
   map = L.map('map').setView(KITSUKI_CENTER, INITIAL_ZOOM);
@@ -19,13 +18,13 @@ async function init() {
 
   try {
     const resp = await fetch('data.json');
-    if (!resp.ok) throw new Error(`data.json の読み込みに失敗: ${resp.status}`);
+    if (!resp.ok) throw new Error(`data.json 読み込み失敗: ${resp.status}`);
     const data = await resp.json();
     renderData(data);
   } catch (e) {
     console.error(e);
-    document.getElementById('no-selection').textContent =
-      'データの読み込みに失敗しました。data.json を確認してください。';
+    document.getElementById('sidebar-hint').textContent =
+      'データの読み込みに失敗しました。';
   }
 }
 
@@ -35,31 +34,26 @@ function renderData(data) {
       `最終更新: ${data.updated_at.replace('T', ' ')} UTC`;
   }
 
-  data.ponds.forEach(pond => {
-    pondData[pond.id] = pond;
-  });
+  data.ponds.forEach(pond => { pondData[pond.id] = pond; });
 
   data.ponds.forEach(pond => {
-    // 座標がない池はスキップ
     if (pond.lat == null || pond.lng == null) return;
 
     const layer = L.circleMarker([pond.lat, pond.lng], {
       radius: 8,
       color: '#1565c0',
       fillColor: '#42a5f5',
-      fillOpacity: 0.7,
+      fillOpacity: 0.75,
       weight: 1.5,
     });
 
-    const tooltipText = `${pond.name}（${pond.tiiki} ${pond.ooaza}）`;
-    layer.bindTooltip(tooltipText, { permanent: false, direction: 'top' });
+    layer.bindTooltip(`${pond.name}（${pond.tiiki} ${pond.ooaza}）`,
+      { permanent: false, direction: 'top', offset: [0, -8] });
     layer.on('click', () => selectPond(pond.id));
     layer.addTo(map);
 
     pondLayers[pond.id] = layer;
   });
-
-  showNoSelection();
 }
 
 function selectPond(pondId) {
@@ -71,77 +65,26 @@ function selectPond(pondId) {
   const pond = pondData[pondId];
   if (!pond) return;
 
-  if (pondLayers[pondId]) {
-    pondLayers[pondId].setStyle({ color: '#e53935', fillColor: '#ef9a9a' });
-  }
+  pondLayers[pondId]?.setStyle({ color: '#c62828', fillColor: '#ef9a9a' });
 
-  const latest = pond.timeseries && pond.timeseries.length > 0
+  const latest = pond.timeseries?.length > 0
     ? pond.timeseries[pond.timeseries.length - 1]
     : null;
-
-  const areaHaStr = pond.area_ha != null ? `${pond.area_ha} ha` : '—';
-  const waterAreaStr = latest
-    ? `${latest.water_area_m2.toLocaleString()} ㎡（${latest.date}）`
-    : 'データなし';
+  const latestHa = latest ? (latest.water_area_m2 / 10000).toFixed(4) : null;
 
   document.getElementById('pond-info').innerHTML = `
     <h2>${pond.name}</h2>
     <table class="info-table">
       <tr><th>地域</th><td>${pond.tiiki || '—'}</td></tr>
       <tr><th>大字</th><td>${pond.ooaza || '—'}</td></tr>
-      <tr><th>池面積</th><td>${areaHaStr}</td></tr>
-      <tr><th>最新水面</th><td><strong>${waterAreaStr}</strong></td></tr>
+      <tr><th>登録面積</th><td>${pond.area_ha != null ? pond.area_ha + ' ha' : '—'}</td></tr>
+      <tr><th>最新水面</th><td><strong>${latestHa ? latestHa + ' ha' : 'データなし'}</strong>${latest ? `<br><span class="date-label">${latest.date}</span>` : ''}</td></tr>
     </table>
+    <a class="chart-btn" href="pond.html?id=${pondId}" target="_blank">
+      📈 年別比較グラフを見る
+    </a>
   `;
-
-  document.getElementById('no-selection').style.display = 'none';
-  document.getElementById('chart').style.display = 'block';
-  renderChart(pond);
-}
-
-function renderChart(pond) {
-  const dates = pond.timeseries.map(d => d.date);
-  const areas = pond.timeseries.map(d => d.water_area_m2);
-
-  const trace = {
-    x: dates,
-    y: areas,
-    mode: 'lines+markers',
-    type: 'scatter',
-    name: '水面面積',
-    line: { color: '#1565c0', width: 2 },
-    marker: { size: 5, color: '#1565c0' },
-    hovertemplate: '%{x}<br>%{y:,.0f} ㎡<extra></extra>',
-  };
-
-  const layout = {
-    title: {
-      text: `${pond.name} 水面面積時系列`,
-      font: { size: 13 },
-    },
-    xaxis: {
-      title: '撮影日',
-      type: 'date',
-      tickformat: '%Y-%m',
-    },
-    yaxis: {
-      title: '水面面積 (㎡)',
-      rangemode: 'tozero',
-    },
-    margin: { t: 40, r: 10, b: 50, l: 60 },
-    plot_bgcolor: '#f8f9fa',
-    paper_bgcolor: '#fff',
-    font: { size: 11 },
-  };
-
-  Plotly.newPlot('chart', [trace], layout, { responsive: true, displayModeBar: false });
-}
-
-function showNoSelection() {
-  document.getElementById('pond-info').innerHTML =
-    '<span style="color:#999;font-size:13px;">地図上の池をクリックしてください</span>';
-  document.getElementById('no-selection').style.display = 'flex';
-  document.getElementById('chart').style.display = 'none';
+  document.getElementById('sidebar-hint').style.display = 'none';
 }
 
 document.addEventListener('DOMContentLoaded', init);
