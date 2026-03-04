@@ -67,9 +67,10 @@ function selectPond(pondId) {
 
   pondLayers[pondId]?.setStyle({ color: '#c62828', fillColor: '#ef9a9a' });
 
-  const latest = pond.timeseries?.length > 0
-    ? pond.timeseries[pond.timeseries.length - 1]
-    : null;
+  // 直近の非ゼロデータを最新値として使用
+  const latest = pond.timeseries?.slice().reverse().find(d => d.water_area_m2 > 0)
+    ?? pond.timeseries?.[pond.timeseries.length - 1]
+    ?? null;
   const latestHa = latest ? (latest.water_area_m2 / 10000).toFixed(4) : null;
 
   document.getElementById('pond-info').innerHTML = `

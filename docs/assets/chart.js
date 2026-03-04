@@ -52,9 +52,10 @@ function renderMeta(pond) {
   document.title = `${pond.name} — 杵築市 水面面積モニタリング`;
   document.getElementById('pond-name').textContent = pond.name;
 
-  const latest = pond.timeseries.length > 0
-    ? pond.timeseries[pond.timeseries.length - 1]
-    : null;
+  // 直近の非ゼロデータを最新値として使用
+  const latest = pond.timeseries.slice().reverse().find(d => d.water_area_m2 > 0)
+    ?? pond.timeseries[pond.timeseries.length - 1]
+    ?? null;
   const latestHa = latest ? (latest.water_area_m2 / 10000).toFixed(4) : null;
 
   const chips = [
@@ -119,6 +120,15 @@ function renderChart(pond) {
     });
   }
 
+  // 実データ（参照線を除く）の最大値からy軸レンジを決定
+  const dataMaxHa = Math.max(
+    0,
+    ...traces
+      .filter(t => !t.name.startsWith('登録面積'))
+      .flatMap(t => t.y.filter(v => v != null))
+  );
+  const yMax = dataMaxHa > 0 ? dataMaxHa * 1.25 : 1;
+
   const layout = {
     font: { family: '"Noto Sans JP", sans-serif', size: 12, color: '#4a5568' },
     paper_bgcolor: '#fff',
@@ -140,7 +150,7 @@ function renderChart(pond) {
       title: { text: '水面面積 (ha)', standoff: 12 },
       gridcolor: '#edf2f7',
       linecolor: '#e2e8f0',
-      rangemode: 'tozero',
+      range: [0, yMax],
       tickfont: { size: 12 },
       tickformat: '.3f',
     },
