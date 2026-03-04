@@ -1,0 +1,4 @@
+earthengine-api>=0.1.370
+pandas>=2.0.0
+plotly>=5.0.0
+geopandas>=0.14.0

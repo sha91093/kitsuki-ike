@@ -1,0 +1,116 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#map {
+  flex: 1;
+  height: 100%;
+}
+
+#sidebar {
+  width: 380px;
+  min-width: 280px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#sidebar-header {
+  padding: 16px;
+  background: #1565c0;
+  color: #fff;
+}
+
+#sidebar-header h1 {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+#sidebar-header p {
+  font-size: 11px;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
+#pond-info {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  min-height: 60px;
+}
+
+#pond-info h2 {
+  font-size: 15px;
+  color: #1565c0;
+}
+
+#pond-info .meta {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+#pond-info .latest-area {
+  font-size: 13px;
+  color: #333;
+  margin-top: 6px;
+}
+
+#chart-container {
+  flex: 1;
+  padding: 8px;
+  overflow: hidden;
+}
+
+#chart {
+  width: 100%;
+  height: 100%;
+}
+
+#no-selection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #999;
+  font-size: 13px;
+  text-align: center;
+  padding: 20px;
+}
+
+#updated-at {
+  padding: 8px 16px;
+  font-size: 11px;
+  color: #999;
+  border-top: 1px solid #e0e0e0;
+  text-align: right;
+}
+
+/* 池ポリゴンのスタイルはapp.jsで制御 */
+
+@media (max-width: 700px) {
+  body {
+    flex-direction: column;
+  }
+
+  #map {
+    height: 50%;
+  }
+
+  #sidebar {
+    width: 100%;
+    height: 50%;
+  }
+}

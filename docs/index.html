@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>杵築市 池水面面積モニタリング</title>
+
+  <!-- Leaflet.js -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div id="map"></div>
+
+  <div id="sidebar">
+    <div id="sidebar-header">
+      <h1>杵築市 池水面面積モニタリング</h1>
+      <p>Sentinel-1 SAR（降交軌道）による自動観測</p>
+    </div>
+
+    <div id="pond-info">
+      <span style="color:#999;font-size:13px;">地図上の池をクリックしてください</span>
+    </div>
+
+    <div id="chart-container">
+      <div id="no-selection">
+        池をクリックすると<br>時系列グラフが表示されます
+      </div>
+      <div id="chart" style="display:none;"></div>
+    </div>
+
+    <div id="updated-at"></div>
+  </div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
