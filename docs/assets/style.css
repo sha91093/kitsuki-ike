@@ -138,6 +138,15 @@ body {
 }
 
 /* ── フッター ── */
+#disclaimer {
+  margin: 0;
+  padding: 6px 16px;
+  font-size: 10px;
+  color: #a0aec0;
+  border-top: 1px solid #edf2f7;
+  line-height: 1.5;
+}
+
 #updated-at {
   padding: 8px 16px;
   font-size: 10px;
