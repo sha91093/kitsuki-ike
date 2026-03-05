@@ -4,10 +4,10 @@
 const YEAR_COLORS = ['#3b82f6','#f97316','#10b981','#a855f7','#ef4444','#eab308','#06b6d4','#ec4899'];
 const RAIN_COLORS = ['#93c5fd','#fdba74','#6ee7b7','#d8b4fe','#fca5a5'];
 
-// 降水量取得対象年（現在年から3年前まで）
-const CURRENT_YEAR = 2026;
-const RAIN_START = `${CURRENT_YEAR - 2}-01-01`;
-const RAIN_END   = `${CURRENT_YEAR}-12-31`;
+// 降水量取得対象（直近3年・終端は今日）
+const _today = new Date();
+const RAIN_END   = _today.toISOString().split('T')[0];
+const RAIN_START = `${_today.getFullYear() - 2}-01-01`;
 const KITSUKI_LAT = 33.42;
 const KITSUKI_LNG = 131.62;
 
