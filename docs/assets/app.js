@@ -85,7 +85,6 @@ function selectPond(pondId) {
       📈 年別比較グラフを見る
     </a>
   `;
-  document.getElementById('sidebar-hint').style.display = 'none';
 
   if (isMobile()) openSidebar();
 }
