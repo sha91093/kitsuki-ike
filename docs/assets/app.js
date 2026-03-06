@@ -86,6 +86,31 @@ function selectPond(pondId) {
     </a>
   `;
   document.getElementById('sidebar-hint').style.display = 'none';
+
+  if (isMobile()) openSidebar();
 }
 
-document.addEventListener('DOMContentLoaded', init);
+function isMobile() {
+  return window.innerWidth <= 700;
+}
+
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('mobile-open');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('mobile-open');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  init();
+
+  document.getElementById('sidebar-close').addEventListener('click', closeSidebar);
+
+  // 地図の空白部分タップでサイドバーを閉じる
+  document.getElementById('map').addEventListener('click', e => {
+    if (isMobile() && e.target.closest('#map') && !e.target.closest('.leaflet-marker-icon, .leaflet-interactive')) {
+      closeSidebar();
+    }
+  });
+});

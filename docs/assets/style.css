@@ -155,9 +155,118 @@ body {
   text-align: right;
 }
 
+/* ── サイドバーハンドル（モバイル用、PCでは非表示） ── */
+#sidebar-handle { display: none; }
+
+/* ── 閉じるボタン（モバイル用、PCでは非表示） ── */
+#sidebar-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.list-btns {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.list-btns .list-btn { margin-top: 0; }
+
+#sidebar-close {
+  display: none;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+}
+
 /* ── レスポンシブ ── */
 @media (max-width: 700px) {
-  body { flex-direction: column; }
-  #map     { height: 55%; }
-  #sidebar { width: 100%; height: 45%; }
+  body {
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* 地図はフル画面 */
+  #map {
+    width: 100%;
+    height: 100dvh;
+    flex: none;
+  }
+
+  /* サイドバーはボトムシートとして固定 */
+  #sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    max-height: 75dvh;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.18);
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    overflow: hidden;
+  }
+
+  /* 開いた状態 */
+  #sidebar.mobile-open {
+    transform: translateY(0);
+  }
+
+  /* ハンドルバー */
+  #sidebar-handle {
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: rgba(255,255,255,0.45);
+    border-radius: 2px;
+    margin: 10px auto 4px;
+  }
+
+  /* 閉じるボタン表示 */
+  #sidebar-close {
+    display: block;
+  }
+
+  /* pond-info をスクロール可能に */
+  #pond-info {
+    max-height: calc(75dvh - 140px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* タッチターゲットを大きく */
+  .list-btn {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  .chart-btn {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+
+  /* 一覧ボタンを縦並びで全幅に */
+  .list-btns {
+    flex-direction: row;
+    gap: 6px;
+  }
+
+  .list-btns .list-btn {
+    flex: 1;
+    text-align: center;
+  }
 }
