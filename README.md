@@ -62,7 +62,7 @@ kitsuki-ike/
 
 1. [Google Cloud Console](https://console.cloud.google.com/) でサービスアカウントを作成
 2. Earth Engine API を有効化
-3. GEEプロジェクト `kitsuki-kato` にサービスアカウントを登録
+3. GEEプロジェクト `仮名` にサービスアカウントを登録
 4. JSON キーファイルをダウンロード
 
 ### 2. GitHub Secrets の設定
