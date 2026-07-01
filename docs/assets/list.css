@@ -18,6 +18,19 @@ body.list-page {
   flex-wrap: wrap;
 }
 
+.back-btn {
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.back-btn:hover { background: rgba(255,255,255,0.28); }
+
 .list-header-title { flex: 1; min-width: 200px; }
 .list-header-title h1 { font-size: 15px; font-weight: 700; }
 .list-header-title p  { font-size: 11px; margin-top: 2px; opacity: 0.8; }
