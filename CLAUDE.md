@@ -20,7 +20,7 @@ GEE サービスアカウントキー（JSON）を GitHub Secrets に登録が�
 
 - Secret名: `GEE_SERVICE_ACCOUNT_KEY`
 - 内容: GEEサービスアカウントのJSONキーファイル全体
-- サービスアカウントには `projects/kitsuki-kato` へのアクセス権が必要
+- サービスアカウントには `projects/仮名` へのアクセス権が必要
 
 ### ローカル開発用
 
@@ -131,7 +131,7 @@ Sentinel-1の降交軌道データが追加されるたびに：
 1. **GEEサービスアカウント作成**
    - [Google Cloud Console](https://console.cloud.google.com/) でサービスアカウント作成
    - Earth Engine API を有効化
-   - GEEプロジェクト `kitsuki-kato` にサービスアカウントを追加
+   - GEEプロジェクト `仮名` にサービスアカウントを追加
 
 2. **GitHub Secrets 設定**
    - `GEE_SERVICE_ACCOUNT_KEY`: サービスアカウントJSONの内容
