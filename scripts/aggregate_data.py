@@ -1,5 +1,20 @@
 """data/water_area/ 以下のCSVを集計して docs/data.json を生成する。
 
+出力する data.json は池ごとに以下を持つ:
+
+- `timeseries` : 降交軌道の全観測（従来どおり。地図・一覧画面が参照する）
+- `orbit_data`: 軌道別・年別の観測（グラフ画面のタブ表示用）
+
+  ```json
+  "orbit_data": {
+    "descending": { "2025": [ { "date": "2025-06-01", "area_m2": 14823.0 }, ... ] },
+    "ascending":  { "2026": [ ... ] }
+  }
+  ```
+
+  観測はあるが水面が検出されなかった日（0㎡ = 撮影範囲外の可能性が高い）は
+  `orbit_data` からは除外する。
+
 Usage:
     python aggregate_data.py
 """
@@ -12,7 +27,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 import pandas as pd
 
-from utils import DATA_DIR, DOCS_DIR, POND_LIST_CSV, setup_logging
+from utils import DATA_DIR, DOCS_DIR, ORBITS, POND_LIST_CSV, setup_logging
 
 logger = setup_logging(__name__)
 
@@ -37,7 +52,11 @@ def load_all_csvs() -> pd.DataFrame:
 
     combined = pd.concat(dfs, ignore_index=True)
     combined["date"] = pd.to_datetime(combined["date"]).dt.strftime("%Y-%m-%d")
-    combined = combined.sort_values("date")
+    # orbit 列が無い / 空の古いCSVは降交軌道として扱う
+    if "orbit" not in combined.columns:
+        combined["orbit"] = "DESCENDING"
+    combined["orbit"] = combined["orbit"].fillna("DESCENDING").astype(str).str.strip().str.upper()
+    combined = combined.sort_values(["date", "orbit"])
     return combined
 
 
@@ -60,6 +79,30 @@ def load_pond_meta() -> dict:
     return meta
 
 
+def build_orbit_data(group: pd.DataFrame) -> dict:
+    """1池分のレコードを {軌道キー: {年: [観測, ...]}} に整理する。
+
+    水面面積が0の日（撮影範囲外とみなす）は除外し、
+    観測が1件も無い軌道はキーごと省略する。
+    """
+    orbit_data = {}
+    for orbit in ORBITS:
+        rows = group[group["orbit"] == orbit].sort_values("date")
+        by_year = {}
+        for _, row in rows.iterrows():
+            area = float(row["water_area_m2"])
+            if area <= 0:
+                continue
+            year = row["date"][:4]
+            by_year.setdefault(year, []).append({
+                "date": row["date"],
+                "area_m2": area,
+            })
+        if by_year:
+            orbit_data[orbit.lower()] = {y: by_year[y] for y in sorted(by_year)}
+    return orbit_data
+
+
 def build_data_json(df: pd.DataFrame) -> dict:
     """pond_id ごとに時系列データを集計してJSONオブジェクトを構築する。"""
     meta = load_pond_meta()
@@ -70,6 +113,7 @@ def build_data_json(df: pd.DataFrame) -> dict:
                 "id": pid,
                 **m,
                 "timeseries": [],
+                "orbit_data": {},
             }
             for pid, m in sorted(meta.items(), key=lambda x: int(x[0]) if x[0].isdigit() else x[0])
         ]
@@ -82,9 +126,11 @@ def build_data_json(df: pd.DataFrame) -> dict:
     for pond_id, group in df.groupby("pond_id", sort=False):
         group = group.sort_values("date")
         m = meta.get(str(pond_id), {})
+        # timeseries は従来どおり降交軌道のみ（地図・一覧画面との互換のため）
+        descending = group[group["orbit"] == "DESCENDING"]
         timeseries = [
             {"date": row["date"], "water_area_m2": row["water_area_m2"]}
-            for _, row in group.iterrows()
+            for _, row in descending.iterrows()
         ]
         ponds.append({
             "id": str(pond_id),
@@ -95,6 +141,7 @@ def build_data_json(df: pd.DataFrame) -> dict:
             "lat": m.get("lat"),
             "lng": m.get("lng"),
             "timeseries": timeseries,
+            "orbit_data": build_orbit_data(group),
         })
 
     ponds.sort(key=lambda p: int(p["id"]) if p["id"].isdigit() else p["id"])
@@ -109,6 +156,9 @@ def main():
     logger.info("CSV集計開始")
     df = load_all_csvs()
     logger.info(f"読み込んだレコード数: {len(df)}")
+    if not df.empty:
+        for orbit, n in df["orbit"].value_counts().items():
+            logger.info(f"  {orbit}: {n} 件")
 
     data = build_data_json(df)
 

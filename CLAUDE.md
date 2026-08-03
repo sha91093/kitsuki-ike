@@ -6,7 +6,7 @@ Google Earth Engine (GEE) のセンチネル1（SAR）データを用いて、�
 
 ## 技術スタック
 
-- **データソース**: Sentinel-1 SAR（降交軌道のみ）via Google Earth Engine
+- **データソース**: Sentinel-1 SAR（降交軌道 + 昇交軌道）via Google Earth Engine
 - **GEEアセット**: `projects/kitsuki-kato/assets/kitsuki_ike2026`（池ポリゴン30か所）
 - **言語**: Python（GEE処理）、JavaScript/HTML（フロントエンド）
 - **ライブラリ**: `earthengine-api`, `pandas`, `plotly`, `geopandas`, `leaflet.js`
@@ -64,18 +64,19 @@ kitsuki-ike/
 
 1. GEEに接続（サービスアカウント認証）
 2. `COPERNICUS/S1_GRD` コレクションからデータ取得
-   - 軌道方向: **降交（DESCENDING）のみ**
+   - 軌道方向: **降交（DESCENDING）と昇交（ASCENDING）の両方**（`--orbits` で限定可）
    - 偏波: VV
    - 対象範囲: 杵築市（池ポリゴンのバウンディングボックス）
 3. 撮影範囲が2つに分かれるため **モザイク処理**で結合
 4. 池ポリゴン（30か所）ごとに水面ピクセルを抽出・面積算出
+5. 撮影日ごとのCSVに、軌道を `orbit` 列で書き分けて保存（`(pond_id, orbit)` をキーにマージ）
 
 ### 2. モザイク処理（`mosaic_and_analyze.py`）
 
 ```python
-# Sentinel-1は撮影パスが2つに分かれる → 同日データをモザイク合成
+# Sentinel-1は撮影パスが2つに分かれる → 同日・同軌道のデータをモザイク合成
 images = ee.ImageCollection('COPERNICUS/S1_GRD') \
-    .filter(ee.Filter.eq('orbitProperties_pass', 'DESCENDING')) \
+    .filter(ee.Filter.eq('orbitProperties_pass', orbit))  # DESCENDING / ASCENDING \
     .filter(ee.Filter.date(date_start, date_end)) \
     .mosaic()
 ```
@@ -95,13 +96,16 @@ water_area = water_mask.multiply(ee.Image.pixelArea())
 
 ```csv
 date,pond_id,pond_name,region,water_area_m2,satellite,orbit
-2026-01-15,001,○○池,山香町,12345.6,Sentinel-1A,DESCENDING
+2026-01-15,001,○○池,山香町,12345.6,Sentinel-1,DESCENDING
+2026-01-15,001,○○池,山香町,12801.3,Sentinel-1,ASCENDING
 ```
 
 ### 5. 時系列グラフ
 
 - 過去3年間 + 最新データの折れ線グラフ
 - X軸: 撮影日、Y軸: 水面面積（㎡）または推定水位（m）
+- 軌道（降交／昇交）はタブで切り替え。両軌道を1本のグラフに混ぜない
+- 年ごとに別系列。直近2年は初期表示、それ以前は `visible: 'legendonly'`（凡例クリックで表示）
 - `plotly` でインタラクティブグラフ生成 → HTMLに埋め込み
 
 ### 6. HTMLインターフェース
@@ -116,11 +120,11 @@ date,pond_id,pond_name,region,water_area_m2,satellite,orbit
 # .github/workflows/update_water_area.yml
 on:
   schedule:
-    - cron: '0 3 * * 1,4'  # 月・木 (Sentinel-1降交の概ねの周期)
+    - cron: '0 3 * * 1,4'  # 月・木 (Sentinel-1の概ねの周期)
   workflow_dispatch:        # 手動実行も可能
 ```
 
-Sentinel-1の降交軌道データが追加されるたびに：
+Sentinel-1（降交・昇交）のデータが追加されるたびに：
 1. GEEから最新データ取得・解析
 2. CSV更新
 3. `docs/data.json` 更新
@@ -145,9 +149,9 @@ Sentinel-1の降交軌道データが追加されるたびに：
 
 ## 注意事項
 
-- Sentinel-1の降交軌道データのみ使用（過去データとの一貫性のため）
+- 降交・昇交では入射角と観測方向が異なるため後方散乱特性も変わる。軌道をまたいで単純比較しない
 - モザイク処理は同日・同軌道の画像を対象とする
-- SAR閾値（-16 dB）は現地の実測データと照合して調整が必要
+- SAR閾値（-16 dB）は当面は両軌道共通。現地の実測データと照合して軌道別に調整が必要
 - GEE の無料枠制限に注意（大量のエクスポートは有料プランが必要な場合あり）
 - 池ポリゴンの `id` フィールド名はGEEアセットの実際のフィールド名に合わせること
 
@@ -157,4 +161,7 @@ Sentinel-1の降交軌道データが追加されるたびに：
 pip install -r requirements.txt
 earthengine authenticate
 python scripts/fetch_sentinel1.py --date 2026-03-01
+
+# 軌道・対象池を限定（試験導入時）
+python scripts/fetch_sentinel1.py --days-back 30 --orbits ascending --pond-ids 3,12
 ```
