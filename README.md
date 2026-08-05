@@ -102,6 +102,19 @@ Settings → Pages → Source を **Deploy from a branch** に設定し、ブラ
 
 GitHub Actions の **Run workflow** から手動実行、または月・木の自動実行を待ちます。
 
+### 手動実行のパラメータ
+
+GitHub Actions → 「水面面積データ更新」→ **Run workflow** で以下を指定できます。
+
+| 入力 | 既定値 | 説明 |
+|---|---|---|
+| `days_back` | `14` | 何日前まで遡って取得するか |
+| `orbits` | `descending,ascending` | 取得する軌道。`descending` / `ascending` に限定も可 |
+| `pond_ids` | （空欄） | `simple_id` のカンマ区切りで対象池を限定（試験導入用） |
+
+Run workflow のブランチ欄で作業ブランチを選ぶと、そのブランチの内容で実行され、
+結果も同じブランチにコミットされます（本番ブランチには影響しません）。
+
 ### 初回・過去データの一括取得
 
 1. GitHub Actions → 「水面面積データ更新」→ **Run workflow**

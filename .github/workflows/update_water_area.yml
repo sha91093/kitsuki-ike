@@ -2,13 +2,27 @@ name: 水面面積データ更新
 
 on:
   schedule:
-    - cron: '0 3 * * 1,4'  # 月・木 03:00 UTC（Sentinel-1降交軌道の概ね周期）
+    - cron: '0 3 * * 1,4'  # 月・木 03:00 UTC（Sentinel-1の概ねの周期）
   workflow_dispatch:
     inputs:
       days_back:
         description: '何日前まで遡って取得するか（初回過去データ取得時は 730 を指定）'
         required: false
         default: '14'
+        type: string
+      orbits:
+        description: '取得する軌道'
+        required: false
+        default: 'descending,ascending'
+        type: choice
+        options:
+          - 'descending,ascending'
+          - 'descending'
+          - 'ascending'
+      pond_ids:
+        description: '対象池を simple_id のカンマ区切りで限定（試験導入用。空欄なら全池）'
+        required: false
+        default: ''
         type: string
 
 permissions:
@@ -38,9 +52,17 @@ jobs:
       - name: Sentinel-1 データ取得・水面面積算出
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /tmp/gee_key.json
+          # 入力値はシェルに直接展開せず環境変数経由で渡す
+          DAYS_BACK: ${{ github.event.inputs.days_back || '14' }}
+          ORBITS: ${{ github.event.inputs.orbits || 'descending,ascending' }}
+          POND_IDS: ${{ github.event.inputs.pond_ids }}
         run: |
-          DAYS_BACK=${{ github.event.inputs.days_back || '14' }}
-          python scripts/fetch_sentinel1.py --days-back "$DAYS_BACK"
+          ARGS=(--days-back "$DAYS_BACK" --orbits "$ORBITS")
+          if [ -n "$POND_IDS" ]; then
+            ARGS+=(--pond-ids "$POND_IDS")
+          fi
+          echo "実行: python scripts/fetch_sentinel1.py ${ARGS[*]}"
+          python scripts/fetch_sentinel1.py "${ARGS[@]}"
 
       - name: データ集計・data.json 生成
         run: python scripts/aggregate_data.py
