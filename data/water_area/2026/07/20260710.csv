@@ -29,3 +29,5 @@ date,pond_id,pond_name,tiiki,ooaza,area_ha,water_area_m2,satellite,orbit
 2026-07-10,35,新宮溜池,杵築,日野,3.81,0.0,Sentinel-1,DESCENDING
 2026-07-10,43,轟溜池,杵築,船部,2.04,0.0,Sentinel-1,DESCENDING
 2026-07-10,48,申川溜池北方の池,杵築,八坂,0.49,0.0,Sentinel-1,DESCENDING
+2026-07-10,3,床並溜池,山香,下,1.65,5732.8,Sentinel-1,ASCENDING
+2026-07-10,12,大河内溜池南方の池,大田,白木原,0.92,2133.3,Sentinel-1,ASCENDING
