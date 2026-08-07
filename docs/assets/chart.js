@@ -11,6 +11,16 @@ const YEAR_COLORS = [
   '#ec4899', // pink
 ];
 
+const ORBITS = ['descending', 'ascending'];
+const ORBIT_LABELS = { descending: '降交軌道', ascending: '昇交軌道' };
+
+// デフォルトで表示する年数（これより古い年は凡例クリックで表示）
+const DEFAULT_VISIBLE_YEARS = 2;
+
+let currentPond = null;
+let currentOrbit = 'descending';
+let chartInitialized = false;
+
 async function init() {
   const params = new URLSearchParams(location.search);
   const pondId = params.get('id');
@@ -36,13 +46,43 @@ async function init() {
     return;
   }
 
+  currentPond = pond;
   renderMeta(pond);
-  if (!pond.timeseries || pond.timeseries.length === 0) {
-    document.getElementById('chart').style.display = 'none';
-    document.getElementById('no-data').style.display = 'flex';
-    return;
+  setupOrbitTabs(pond);
+}
+
+/**
+ * 指定軌道の観測を {年: [{date, ha}, ...]} で返す。
+ * orbit_data を持たない旧スキーマの data.json では timeseries を降交軌道として扱う。
+ */
+function getOrbitYears(pond, orbit) {
+  const byYear = {};
+
+  const orbitData = pond.orbit_data && pond.orbit_data[orbit];
+  if (orbitData) {
+    Object.keys(orbitData).forEach(year => {
+      const pts = (orbitData[year] || [])
+        .filter(d => d.area_m2 > 0)
+        .map(d => ({ date: d.date, ha: d.area_m2 / 10000 }));
+      if (pts.length > 0) byYear[year] = pts;
+    });
+    return byYear;
   }
-  renderChart(pond);
+
+  if (!pond.orbit_data && orbit === 'descending') {
+    (pond.timeseries || [])
+      .filter(d => d.water_area_m2 > 0)
+      .forEach(d => {
+        const year = d.date.slice(0, 4);
+        if (!byYear[year]) byYear[year] = [];
+        byYear[year].push({ date: d.date, ha: d.water_area_m2 / 10000 });
+      });
+  }
+  return byYear;
+}
+
+function hasOrbitData(pond, orbit) {
+  return Object.keys(getOrbitYears(pond, orbit)).length > 0;
 }
 
 function renderMeta(pond) {
@@ -50,8 +90,8 @@ function renderMeta(pond) {
   document.getElementById('pond-name').textContent = pond.name;
 
   // 直近の非ゼロデータを最新値として使用
-  const latest = pond.timeseries.slice().reverse().find(d => d.water_area_m2 > 0)
-    ?? pond.timeseries[pond.timeseries.length - 1]
+  const latest = pond.timeseries?.slice().reverse().find(d => d.water_area_m2 > 0)
+    ?? pond.timeseries?.[pond.timeseries.length - 1]
     ?? null;
   const latestHa = latest ? (latest.water_area_m2 / 10000).toFixed(4) : null;
 
@@ -70,34 +110,78 @@ function renderMeta(pond) {
   `).join('');
 }
 
-function renderChart(pond) {
-  // ゼロ値を除外してから年ごとに整理
-  const byYear = {};
-  pond.timeseries
-    .filter(d => d.water_area_m2 > 0)
-    .forEach(d => {
-      const [y, m, day] = d.date.split('-');
-      const year = parseInt(y, 10);
-      if (!byYear[year]) byYear[year] = [];
-      byYear[year].push({
-        origDate: d.date,
-        xDate: `2000-${m}-${day}`,
-        ha: d.water_area_m2 / 10000,
-      });
+function setupOrbitTabs(pond) {
+  const tabs = document.querySelectorAll('#orbit-tabs .tab');
+
+  tabs.forEach(tab => {
+    const orbit = tab.dataset.orbit;
+    if (!hasOrbitData(pond, orbit)) {
+      tab.disabled = true;
+      tab.title = `${ORBIT_LABELS[orbit]}のデータはまだありません`;
+      tab.innerHTML = `${ORBIT_LABELS[orbit]}<span class="tab-note">（データなし）</span>`;
+    }
+    tab.addEventListener('click', () => {
+      if (tab.disabled || tab.classList.contains('active')) return;
+      selectOrbit(orbit);
     });
+  });
 
-  const years = Object.keys(byYear).map(Number).sort();
+  // データのある軌道を初期表示に（降交を優先）
+  const initial = ORBITS.find(o => hasOrbitData(pond, o)) ?? 'descending';
+  selectOrbit(initial);
+}
 
-  // 年ごとのトレース（非ゼロ実測値のみ）
-  const traces = years.map((year, i) => {
-    const color = YEAR_COLORS[i % YEAR_COLORS.length];
-    const pts = byYear[year].sort((a, b) => a.xDate.localeCompare(b.xDate));
+function selectOrbit(orbit) {
+  currentOrbit = orbit;
+
+  document.querySelectorAll('#orbit-tabs .tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.orbit === orbit);
+  });
+
+  const chartEl = document.getElementById('chart');
+  const noDataEl = document.getElementById('no-data');
+
+  if (!hasOrbitData(currentPond, orbit)) {
+    chartEl.style.display = 'none';
+    noDataEl.textContent = `この池の${ORBIT_LABELS[orbit]}の観測データがまだありません`;
+    noDataEl.style.display = 'flex';
+    return;
+  }
+
+  chartEl.style.display = '';
+  noDataEl.style.display = 'none';
+  renderChart(currentPond, orbit);
+}
+
+/** 降交・昇交で同じ年が同じ色になるよう、池全体の年リストから色を決める */
+function yearColorMap(pond) {
+  const years = new Set();
+  ORBITS.forEach(o => Object.keys(getOrbitYears(pond, o)).forEach(y => years.add(y)));
+  const sorted = [...years].sort();
+  const map = {};
+  sorted.forEach((y, i) => { map[y] = YEAR_COLORS[i % YEAR_COLORS.length]; });
+  return map;
+}
+
+function buildTraces(pond, orbit) {
+  const byYear = getOrbitYears(pond, orbit);
+  const colors = yearColorMap(pond);
+  const years = Object.keys(byYear).sort();
+
+  // 直近 DEFAULT_VISIBLE_YEARS 年分だけ初期表示、それより古い年は凡例クリックで表示
+  const visibleFrom = years.slice(-DEFAULT_VISIBLE_YEARS)[0];
+
+  const traces = years.map(year => {
+    const color = colors[year];
+    const pts = byYear[year].slice().sort((a, b) => a.date.localeCompare(b.date));
     return {
-      x: pts.map(p => p.xDate),
+      // 年をまたいで重ねるため、X軸は「月日」だけを 2000 年に正規化する
+      x: pts.map(p => `2000-${p.date.slice(5)}`),
       y: pts.map(p => p.ha),
-      customdata: pts.map(p => p.origDate),
+      customdata: pts.map(p => p.date),
       mode: 'lines+markers',
       name: `${year}年`,
+      visible: year >= visibleFrom ? true : 'legendonly',
       line:   { color, width: 2 },
       marker: { color, size: 6, symbol: 'circle',
                 line: { color: '#fff', width: 1.5 } },
@@ -118,6 +202,10 @@ function renderChart(pond) {
     });
   }
 
+  return traces;
+}
+
+function buildLayout(traces, orbit) {
   // 実データの最大値からy軸レンジを決定（参照線は除外）
   const dataMaxHa = Math.max(
     0,
@@ -127,11 +215,16 @@ function renderChart(pond) {
   );
   const yMax = dataMaxHa > 0 ? dataMaxHa * 1.25 : 1;
 
-  const layout = {
+  return {
+    title: {
+      text: `Sentinel-1 SAR ${ORBIT_LABELS[orbit]}`,
+      font: { size: 13, color: '#718096' },
+      x: 0.01, xanchor: 'left', y: 0.98, yanchor: 'top',
+    },
     font: { family: '"Noto Sans JP", sans-serif', size: 12, color: '#4a5568' },
     paper_bgcolor: '#fff',
     plot_bgcolor:  '#fafbfc',
-    margin: { t: 30, r: 20, b: 70, l: 70 },
+    margin: { t: 40, r: 20, b: 70, l: 70 },
     legend: {
       orientation: 'h',
       x: 0, y: -0.2,
@@ -142,6 +235,7 @@ function renderChart(pond) {
       type: 'date',
       tickformat: '%-m月',
       dtick: 'M1',
+      range: ['2000-01-01', '2000-12-31'],
       gridcolor: '#edf2f7',
       linecolor: '#e2e8f0',
       tickfont: { size: 12 },
@@ -161,16 +255,27 @@ function renderChart(pond) {
       font: { color: '#fff', size: 12, family: '"Noto Sans JP", sans-serif' },
     },
   };
+}
 
-  const config = {
-    responsive: true,
-    displayModeBar: true,
-    modeBarButtonsToRemove: ['select2d', 'lasso2d', 'autoScale2d'],
-    displaylogo: false,
-    locale: 'ja',
-  };
+const CHART_CONFIG = {
+  responsive: true,
+  displayModeBar: true,
+  modeBarButtonsToRemove: ['select2d', 'lasso2d', 'autoScale2d'],
+  displaylogo: false,
+  locale: 'ja',
+};
 
-  Plotly.newPlot('chart', traces, layout, config);
+function renderChart(pond, orbit) {
+  const traces = buildTraces(pond, orbit);
+  const layout = buildLayout(traces, orbit);
+
+  // 初回のみ newPlot、以降のタブ切り替えは react で差し替える
+  if (chartInitialized) {
+    Plotly.react('chart', traces, layout, CHART_CONFIG);
+  } else {
+    Plotly.newPlot('chart', traces, layout, CHART_CONFIG);
+    chartInitialized = true;
+  }
 }
 
 document.addEventListener('DOMContentLoaded', init);

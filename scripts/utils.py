@@ -43,3 +43,31 @@ DATA_DIR = REPO_ROOT / "data" / "water_area"
 DOCS_DIR = REPO_ROOT / "docs"
 GEE_ASSET = "projects/kitsuki-kato/assets/kitsuki_ike2026"
 SAR_THRESHOLD_DB = -16
+
+# 取得対象の軌道。並び順はCSV／data.jsonでの出力順にもなる（降交が先）
+ORBITS = ["DESCENDING", "ASCENDING"]
+
+CSV_FIELDNAMES = [
+    "date", "pond_id", "pond_name", "tiiki", "ooaza",
+    "area_ha", "water_area_m2", "satellite", "orbit",
+]
+
+
+def normalize_orbit(orbit: str) -> str:
+    """'desc' / 'descending' / 'DESCENDING' などを正規化して返す。"""
+    if orbit is None:
+        raise ValueError("軌道が指定されていません")
+    key = str(orbit).strip().upper()
+    if key in ("D", "DESC", "DESCENDING"):
+        return "DESCENDING"
+    if key in ("A", "ASC", "ASCENDING"):
+        return "ASCENDING"
+    raise ValueError(f"未知の軌道指定です: {orbit}（descending / ascending）")
+
+
+def orbit_sort_key(orbit: str) -> int:
+    """CSVの行順を安定させるための軌道ソートキー（降交→昇交）。"""
+    try:
+        return ORBITS.index(normalize_orbit(orbit))
+    except ValueError:
+        return len(ORBITS)

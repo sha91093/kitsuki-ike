@@ -9,12 +9,12 @@ https://sha91093.github.io/kitsuki-ike/
 GitHub Pages でホスティング：`docs/` フォルダを GitHub Pages のソースに設定してください。
 
 - **地図画面** (`index.html`) — Leaflet.js による杵築市地図。池マーカーをクリックすると地域・面積情報を表示
-- **グラフ画面** (`pond.html?id=N`) — 撮影日ごとの水面面積を年別折れ線グラフで比較
+- **グラフ画面** (`pond.html?id=N`) — 撮影日ごとの水面面積を年別折れ線グラフで比較。降交／昇交軌道をタブで切り替え
 
 ## 仕組み
 
 ```
-Sentinel-1 SAR（降交軌道）
+Sentinel-1 SAR（降交軌道 + 昇交軌道）
         ↓ Google Earth Engine
   水面ピクセル検出（VV < -16 dB）
         ↓
@@ -28,6 +28,9 @@ Sentinel-1 SAR（降交軌道）
 ```
 
 GitHub Actions が毎週月・木曜日に自動実行し、最新データを取得してリポジトリに反映します。
+
+降交軌道（DESCENDING）と昇交軌道（ASCENDING）の両方を取得し、CSVの `orbit` 列で書き分けます。
+両軌道は入射角・観測方向が異なり後方散乱特性も変わるため、グラフでは1本にまとめず軌道別のタブで表示します。
 
 ## ディレクトリ構成
 
@@ -99,6 +102,19 @@ Settings → Pages → Source を **Deploy from a branch** に設定し、ブラ
 
 GitHub Actions の **Run workflow** から手動実行、または月・木の自動実行を待ちます。
 
+### 手動実行のパラメータ
+
+GitHub Actions → 「水面面積データ更新」→ **Run workflow** で以下を指定できます。
+
+| 入力 | 既定値 | 説明 |
+|---|---|---|
+| `days_back` | `14` | 何日前まで遡って取得するか |
+| `orbits` | `descending,ascending` | 取得する軌道。`descending` / `ascending` に限定も可 |
+| `pond_ids` | （空欄） | `simple_id` のカンマ区切りで対象池を限定（試験導入用） |
+
+Run workflow のブランチ欄で作業ブランチを選ぶと、そのブランチの内容で実行され、
+結果も同じブランチにコミットされます（本番ブランチには影響しません）。
+
 ### 初回・過去データの一括取得
 
 1. GitHub Actions → 「水面面積データ更新」→ **Run workflow**
@@ -118,11 +134,17 @@ GitHub Actions の **Run workflow** から手動実行、または月・木の�
 pip install -r requirements.txt
 earthengine authenticate
 
-# 特定日付を指定
+# 特定日付を指定（既定は降交・昇交の両軌道）
 python scripts/fetch_sentinel1.py --date 2025-06-01
 
 # 直近N日分を取得
 python scripts/fetch_sentinel1.py --days-back 30
+
+# 軌道を限定して取得
+python scripts/fetch_sentinel1.py --days-back 30 --orbits descending
+
+# 試験導入：特定の池だけ昇交軌道を取得
+python scripts/fetch_sentinel1.py --days-back 30 --orbits ascending --pond-ids 3,12
 
 # data.json を再生成
 python scripts/aggregate_data.py
@@ -135,14 +157,38 @@ python scripts/aggregate_data.py
 ```csv
 date,pond_id,pond_name,tiiki,ooaza,area_ha,water_area_m2,satellite,orbit
 2025-06-01,3,床並溜池,山香,下,1.65,14823.0,Sentinel-1,DESCENDING
+2025-06-01,3,床並溜池,山香,下,1.65,15104.2,Sentinel-1,ASCENDING
 ```
+
+1つの撮影日に両軌道の観測がある場合、同じCSVに `orbit` 列で書き分けて保存します。
+再取得時は `(pond_id, orbit)` をキーにマージするため、後から昇交軌道だけを追加しても
+既存の降交軌道のデータは失われません。
+
+### docs/data.json
+
+池ごとに、従来の `timeseries`（降交軌道の全観測）に加えて、軌道別・年別の `orbit_data` を持ちます。
+
+```json
+{
+  "id": "3",
+  "name": "床並溜池",
+  "timeseries": [ { "date": "2025-06-01", "water_area_m2": 14823.0 } ],
+  "orbit_data": {
+    "descending": { "2025": [ { "date": "2025-06-01", "area_m2": 14823.0 } ] },
+    "ascending":  { "2025": [ { "date": "2025-06-01", "area_m2": 15104.2 } ] }
+  }
+}
+```
+
+観測データが1件も無い軌道は `orbit_data` からキーごと省略され、グラフ画面では該当タブが
+「データなし」として無効化されます。
 
 ## 技術スタック
 
 | 用途 | 技術 |
 |---|---|
 | 衛星データ取得・解析 | Google Earth Engine Python API |
-| 水面検出 | Sentinel-1 VVバンド SAR後方散乱（閾値: -16 dB） |
+| 水面検出 | Sentinel-1 VVバンド SAR後方散乱（閾値: -16 dB、両軌道共通） |
 | データ管理 | pandas, CSV |
 | 地図表示 | Leaflet.js |
 | グラフ表示 | Plotly.js |
@@ -151,7 +197,8 @@ date,pond_id,pond_name,tiiki,ooaza,area_ha,water_area_m2,satellite,orbit
 
 ## 注意事項
 
-- Sentinel-1 降交軌道のみ使用（過去データとの一貫性のため）
-- SAR閾値（-16 dB）は現地実測データと照合して調整が必要な場合があります
+- 降交軌道は2023年12月から、昇交軌道は導入以降のデータのみが蓄積されます（過去データの期間が軌道ごとに異なります）
+- 降交・昇交では入射角と観測方向が異なるため、同じ池・同じ水位でも観測値に差が出ることがあります。軌道をまたいだ比較は行わず、タブを分けて確認してください
+- SAR閾値（-16 dB）は当面は両軌道共通です。現地実測データと照合して軌道別に調整が必要な場合があります
 - GEEアセット: `projects/kitsuki-kato/assets/kitsuki_ike2026`
 - GEE無料枠の処理量制限に注意してください（大量の過去データ取得は時間がかかります）
